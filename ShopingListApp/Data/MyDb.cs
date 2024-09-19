@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ShopingListApp.Entities;
 
 namespace ShopingListApp.Data;
 
 public class MyDb : IdentityDbContext
 {
+    
+    public DbSet<Item> Items { get; set; }
+    
     public MyDb(DbContextOptions options) : base(options)
     {
     }

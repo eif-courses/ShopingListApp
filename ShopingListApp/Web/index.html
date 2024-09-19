@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Example</title>
+</head>
+<body>
+<h1>Fetch Data from REST API</h1>
+<button id="fetchDataBtn">Fetch Data</button>
+<pre id="result"></pre>
+
+<script>
+    // Function to fetch data from an API
+    async function fetchData() {
+        try {
+            // Making a GET request to the API
+            const response = await fetch('http://localhost:5186/list/get-shopping-list');
+
+            // Check if the response is OK (status code 200–299)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // Parse the response data as JSON
+            const data = await response.json();
+
+            // Display the result in the page
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+            // Handle errors (network issues, etc.)
+            console.error('Error fetching data:', error);
+            document.getElementById('result').textContent = 'Error fetching data';
+        }
+    }
+
+    // Add an event listener to the button to trigger the fetch request
+    document.getElementById('fetchDataBtn').addEventListener('click', fetchData);
+</script>
+</body>
+</html>

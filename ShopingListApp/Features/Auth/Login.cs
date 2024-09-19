@@ -16,6 +16,12 @@ public class Login : Endpoint<LoginRequest>
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
 
+    public Login(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    {
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
+
 
     public override void Configure()
     {
