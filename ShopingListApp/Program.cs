@@ -38,6 +38,21 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+    var context = services.GetRequiredService<MyDb>();
+    context.Database.Migrate();
+    
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    
+    await SeedData.Initialize(userManager, roleManager);
+    
+}
+
+
 app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigin");
 app.UseAuthentication();
